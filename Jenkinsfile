@@ -16,6 +16,7 @@ pipeline {
                 dir('MavenWebApp/demo') {
                     // Build the Maven project
                     bat 'mvn clean install'
+                    bat 'mvn jetty:run'
                 }
             }
         }
