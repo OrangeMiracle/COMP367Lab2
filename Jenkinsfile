@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout'){
             steps{
-                git branch: 'main', credentialsId: '3ae0a1e8-809c-459e-857c-b9435c486b36', url: 'https://github.com/OrangeMiracle/COMP367Lab2'
+                git branch: 'main', url: 'https://github.com/OrangeMiracle/COMP367Lab2'
             }
         }  
         stage('Build') {
@@ -14,9 +14,10 @@ pipeline {
                 
                 // Change to the Maven project directory
                 dir('MavenWebApp/demo') {
-                    // Build the Maven project
-                    bat 'mvn clean install'
-                    bat 'mvn jetty:run'
+                    //构建镜像
+                    bat 'docker login -u orangemiracle -p WRHkao100'
+                    bat 'docker build -t orangemiracle/comp367lab3demo:demo .'
+                    bat 'docker push orangemiracle/comp367lab3demo:demo'
                 }
             }
         }
